@@ -20,6 +20,12 @@ function inputDigit(digit) {
 }
 
 function inputDecimal(dot) {
+    if (calculator.waitingForSecondOperand === true) {
+        calculator.displayValue = '0.';
+        calculator.waitingForSecondOperand = false;
+        return;
+    }
+
     // se displayValue não conter um ponto decimal:
     if (!calculator.displayValue.includes(dot)) {
         // acrescente o ponto.
