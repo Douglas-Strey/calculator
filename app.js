@@ -34,6 +34,13 @@ function handleOperator(nexOperator) {
     // parseFloat irá converter o conteúdo de displayValue para um ponto flutuante;
     const inputValue = parseFloat(displayValue);
 
+    // aqui iremos substituir o sinal de operação, para caso o usuário mude de ideia;
+    if (operator && calculator.waitingForSecondOperand) {
+        calculator.operator = nexOperator;
+        console.log(calculator);
+        return;
+    }
+
     // agora iremos verificar se firstOperand é vaziu ou indefinido (NaN);
     if (firstOperand === null && !isNaN(inputValue)) {
         calculator.firstOperand = inputValue;
