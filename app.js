@@ -89,6 +89,7 @@ function updateDisplay() {
     const display = document.querySelector('.calculator-screen');
     // atualizar o valor do elemento com o conteúdo do "display.value"
     display.value = calculator.displayValue;
+    console.log(display)
 }
 
 updateDisplay();
@@ -96,31 +97,31 @@ updateDisplay();
 const keys = document.querySelector('.calculator-keys');
 keys.addEventListener('click', (event) => {
     const { target } = event;
-
-    // aqui iremos checar se o local onde foi clicado é um botão
-    // se não for, ele sairá da função
+    const { value } = target;
     if (!target.matches('button')) {
         return;
     }
 
-    if (target.classList.contains('operator')) {
-        handleOperator(target.value);
-        updateDisplay();
-        return;
+    switch (value) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+        case '=':
+            handleOperator(value);
+            break;
+        case '.':
+            inputDecimal(value);
+            break;
+        case 'all-clear':
+            resetCalculator();
+            break;
+        default:
+            // agora vai checar se a tecla é um valor inteiro
+            if (Number.isInteger(parseFloat(value))) {
+                inputDigit(value);
+            }
     }
 
-    if (target.classList.contains('decimal')) {
-        inputDecimal(target.value);
-        updateDisplay();
-        return;
-    }
-
-    if (target.classList.contains('all-clear')) {
-        resetCalculator();
-        updateDisplay();
-        return;
-    }
-
-    inputDigit(target.value);
     updateDisplay();
 });
