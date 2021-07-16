@@ -47,13 +47,14 @@ function handleOperator(nexOperator) {
         return;
     }
 
-    // agora iremos verificar se firstOperand é vaziu ou indefinido (NaN);
+    // ↓ agora iremos verificar se firstOperand é vaziu ou indefinido (NaN);
     if (firstOperand === null && !isNaN(inputValue)) {
         calculator.firstOperand = inputValue;
     } else if (operator) {
         const result = calculate(firstOperand, inputValue, operator);
 
-        calculator.displayValue = String(result);
+        // ↓ Isso é feito para restringir a quantidade de dígitos após o 0 para 7; 
+        calculator.displayValue = `${parseFloat(result.toFixed(7))}`;
         calculator.firstOperand = result;
     }
 
